@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filesystem_components>
+  <superblock>
+    <attribute>
+      <name>check_number</name>
+      <type>int</type>
+      <disk_size_bytes>4</disk_size_bytes>
+      <description>
+        Field that identifies filesystem
+      </description>
+    </attribute>
+    <attribute>
+      <name>block_size</name>
+      <type>int</type>
+      <disk_size_bytes>4</disk_size_bytes>
+      <block_size_value>512</block_size_value>
+      <description>
+        Size on disk of a single block {256, 512(default) or
+        1024
+        bytes}
+      </description>
+    </attribute>
+    <attribute>
+      <name>fat_type</name>
+      <type>int</type>
+      <disk_size_bytes>4</disk_size_bytes>
+      <fat_type_value>10</fat_type_value>
+      <description>
+        Value that determines the number of the FAT entries
+        (2^fat_type) {8, 10(default) or 12}
+      </description>
+    </attribute>
+    <attribute>
+      <name>root_blook</name>
+      <type>int</type>
+      <disk_size_bytes>4</disk_size_bytes>
+      <description>
+        Number of the first block that corresponds to the root
+        block
+      </description>
+    </attribute>
+    <attribute>
+      <name>free_block</name>
+      <type>int</type>
+      <disk_size_bytes>4</disk_size_bytes>
+      <description>
+        Number of the first block in the list of non-used blocks
+      </description>
+    </attribute>
+  </superblock>
+
+  <dir_entry>
+    <attribute>
+      <name>type</name>
+      <type>char</type>
+      <disk_size_bytes>1</disk_size_bytes>
+      <description>
+        kind of entry (TYPE_DIR or TYPE_FILE)
+      </description>
+    </attribute>
+    <attribute>
+      <name>name</name>
+      <type>char[]</type>
+      <array_size>20</array_size>
+      <disk_size_bytes>20</disk_size_bytes>
+      <description>
+        Name of the respective directory or file with
+        MAX_NAME_LENGTH of
+        array_size
+      </description>
+    </attribute>
+    <attribute>
+      <name>day</name>
+      <type>unsigned char</type>
+      <disk_size_bytes>1</disk_size_bytes>
+      <description>
+        Day that the entry was created (1 - 31)
+      </description>
+    </attribute>
+    <attribute>
+      <name>month</name>
+      <type>unsigned char</type>
+      <disk_size_bytes>1</disk_size_bytes>
+      <description>
+        Month that the entry was created (1 - 12)
+      </description>
+    </attribute>
+    <attribute>
+      <name>year</name>
+      <type>unsigned char</type>
+      <disk_size_bytes>1</disk_size_bytes>
+      <description>
+        Year that the entry was created (1 and 255 - (0
+        represents the year of 1900))
+      </description>
+    </attribute>
+    <attribute>
+      <name>hour</name>
+      <type>unsigned char</type>
+      <disk_size_bytes>1</disk_size_bytes>
+      <description>
+        Hour of the day that the entry was created
+      </description>
+    </attribute>
+    <attribute>
+      <name>min</name>
+      <type>unsigned char</type>
+      <disk_size_bytes>1</disk_size_bytes>
+      <description>
+        Minute of the hour that the entry was created
+      </description>
+    </attribute>
+    <attribute>
+      <name>sec</name>
+      <type>unsigned char</type>
+      <disk_size_bytes>1</disk_size_bytes>
+      <description>
+        Second of the minute that the entry was created
+      </description>
+    </attribute>
+    <attribute>
+      <name>size</name>
+      <type>int</type>
+      <disk_size_bytes>4</disk_size_bytes>
+      <description>
+        Size of the dir_entry in bytes (0 if TYPE_DIR)
+      </description>
+    </attribute>
+    <attribute>
+      <name>first_block</name>
+      <type>int</type>
+      <disk_size_bytes>4</disk_size_bytes>
+      <description>
+        Corresponding number to the first block of data
+      </description>
+    </attribute>
+  </dir_entry>
+</filesystem_components>

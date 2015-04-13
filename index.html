@@ -1,0 +1,47 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Virtual File System</title>
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="layout.css">
+</head>
+
+<body>
+    <div id="header">
+        <span>Virtual File System</span>
+    </div>
+
+    <div id="content">
+
+        <input id="myfilesystem" type="file" onclick="readFilesystemFile();" />
+        <form id="xmlAttributes"></form>
+        <table id="superblock">
+            <th><strong>Superblock</strong></th>
+        </table>
+
+        <div id="fatDivWrapper">
+            <div id="fatTableHeader"><strong>Fat Table</strong></div>
+            <div id="fatDiv">
+                <table id="fatTable"></table>
+            </div>
+        </div>
+
+        <div id="dataDivWrapper">
+            <div id="dataTableHeader"><strong>Data Table</strong></div>
+            <div id="dataDiv">
+                <table id="dataTable"></table>
+            </div>
+        </div>
+        <script>displayXMLFields();</script>
+    </div>
+
+    <center>
+        <div id="footer">
+            <span>Copyright &copy; 2015, Filipe Esteves</span>
+        </div>
+    </center>
+
+
+</body>
+</html>
