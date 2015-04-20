@@ -7,6 +7,7 @@ var blocks_pointer = 0;
 var n_fat_entries = 0;
 var int_size = 4;
 var dir_entry_values_to_display = [];
+var dir_entry_list = [];
 
 function displayXMLFields() {
     xml_content = getXMLObject();
@@ -142,6 +143,7 @@ function parseFAT() {
             if (i == 0) {
                 row = fatTable.insertRow(-1);
                 cell = row.insertCell(-1);
+                cell.setAttribute("title", (block_size / 4) * (i) + j);
                 if (j % 2 == 0)
                     cell.setAttribute("class", "dark");
                 else
@@ -155,6 +157,7 @@ function parseFAT() {
             } else {
                 row = fatTable.childNodes[0].childNodes[j];
                 cell = row.insertCell(-1);
+                cell.setAttribute("title", ((block_size / 4) * (i) + j));
                 if (j % 2 == 0)
                     cell.setAttribute("class", "dark");
                 else
@@ -173,7 +176,7 @@ function parseData() {
 
     var sizes = [];
     var types = [];
-    var dirEntrySize = 1;
+    var dirEntrySize = 0;
     var n_entries = Math.floor(block_size / dirEntrySize);
     var dataTable = document.getElementById("dataTable");
 
@@ -189,7 +192,6 @@ function parseData() {
         types[i] = dirEntryAtribs[i].getElementsByTagName("type")[0].innerHTML;
         dirEntrySize += sizes[i];
     }
-
     var row = dataTable.insertRow(-1);
     for (i = 0; i < n_fat_entries; ++i) {
         cell = row.insertCell(-1);
@@ -218,13 +220,17 @@ function parseData() {
                 table.setAttribute("id", "id_" + tableID);
                 table.setAttribute("state", "compacted");
                 var nextDirEntryType = parseDirEntry(pos);
-
-                if (nextDirEntryType == 'D')
+                var x = [4];
+                if (nextDirEntryType == 'D') {
                     table.setAttribute("class", "folderDirEntryTable");
-                else if (nextDirEntryType == 'F')
+                    x[3] = 'D';
+                }
+                else if (nextDirEntryType == 'F') {
                     table.setAttribute("class", "fileDirEntryTable");
+                    x[3] = 'F';
+                }
 
-                else /* if (nextDirEntryType == 'X') */ {
+                else {
                     if (j == 0) {
                         cell.setAttribute("class", "dataBlockCell");
                         cell.innerHTML = "File Data";
@@ -235,7 +241,7 @@ function parseData() {
                 }
                 var pointer = 0;
                 for (k = 0; k < numDirEntryAtribs; ++k) {
-                    r = table.insertRow(-1)//document.createElement("tr");
+                    r = table.insertRow(-1)
                     c = r.insertCell(-1);
                     c.setAttribute("onclick", "displayFullTable(" + '"' + "id_" + tableID + '"' + ")");
                     if ((k % 2) == 0)
@@ -253,12 +259,17 @@ function parseData() {
                         }
                     } else if (types[k] == "int") {
                         c.innerHTML = get_int_at(pos + pointer);
+                        if (xml_content.getElementsByTagName("dir_entry")[0].getElementsByTagName("attribute")[k].getElementsByTagName("name")[0].innerHTML == "first_block") {
+                            x[1] = get_int_at(pos + pointer);
+                        }
                         pointer += sizes[k];
+
                     } else if (types[k] == "char[]") {
                         for (l = 0; l < sizes[k]; ++l) {
                             c.innerHTML += get_char_at(pos + pointer);
                             pointer++;
                         }
+                        x[0] = c.innerHTML;
                     }
                     if (dir_entry_values_to_display[k] != true) {
                         r.setAttribute("style", "display:none");
@@ -266,11 +277,72 @@ function parseData() {
                     }
                     else r.setAttribute("toHide", "no");
                 }
+                x[2] = Math.floor(pos / block_size) -9;
+                dir_entry_list[dir_entry_list.length] = x;
                 div.appendChild(table);
             }
             cell.appendChild(div);
         }
     }
+    console.log(dir_entry_list);
+    var tree =createDirEntryTree(0);
+    tree.setAttribute("class", "tree");
+    document.getElementById('tree').appendChild(tree);
+}
+
+function createDirEntryTree(depth) {
+    var ol = document.createElement("ol");
+    for (var i = 0; i < dir_entry_list.length; ++i) {
+        if (dir_entry_list[i][2] == depth) {
+            if (dir_entry_list[i][0] == ".") {
+                var li = document.createElement("li");
+                var label = document.createElement("label");
+                label.setAttribute("for", dir_entry_list[i][0]);
+                label.innerHTML = dir_entry_list[i][0];
+                var input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("id", dir_entry_list[i][0]);
+                li.appendChild(label);
+                li.appendChild(input);
+                ol.appendChild(li);
+            }
+            if (dir_entry_list[i][0] == "..") {
+                var li = document.createElement("li");
+                var label = document.createElement("label");
+                label.setAttribute("for", dir_entry_list[i][0]);
+                label.innerHTML = dir_entry_list[i][0];
+                var input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("id", dir_entry_list[i][0]);
+                li.appendChild(label);
+                li.appendChild(input);
+                ol.appendChild(li);
+            }
+            if (dir_entry_list[i][1] > depth && dir_entry_list[i][3] == 'D') {
+                var li = document.createElement("li");
+                var label = document.createElement("label");
+                label.setAttribute("for", dir_entry_list[i][0]);
+                label.innerHTML = dir_entry_list[i][0];
+                var input = document.createElement("input");
+                input.setAttribute("type","checkbox");
+                input.setAttribute("id", dir_entry_list[i][0]);
+                li.appendChild(label);
+                li.appendChild(input);
+                li.appendChild(createDirEntryTree(dir_entry_list[i][1]));
+                ol.appendChild(li);
+            }
+            else if (dir_entry_list[i][1] > depth && dir_entry_list[i][3] == 'F') {
+                var li = document.createElement("li");
+                li.setAttribute("class", "file");
+                var a = document.createElement("a");
+                a.setAttribute("href", "");
+                a.innerHTML = dir_entry_list[i][0];
+                li.appendChild(a);
+                ol.appendChild(li);
+            }
+        }
+    }
+    return ol;
 }
 
 function displayFullTable(id) {

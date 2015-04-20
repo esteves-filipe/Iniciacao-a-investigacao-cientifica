@@ -58,7 +58,7 @@
         kind of entry (TYPE_DIR or TYPE_FILE)
       </description>
     </attribute>
-    <attribute>
+        <attribute>
       <name>name</name>
       <type>char[]</type>
       <array_size>20</array_size>
