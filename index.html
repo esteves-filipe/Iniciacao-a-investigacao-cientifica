@@ -13,16 +13,20 @@
         <span>Virtual File System</span>
     </div>
 
-    <div id="tree">
+    <div id="treeWrapper">
+        <div id="tree" oncontextmenu="resetVar();">
+        </div>
     </div>
 
     <div id="content">
 
         <input id="myfilesystem" type="file" onclick="readFilesystemFile();" />
         <form id="xmlAttributes"></form>
-        <table id="superblock">
-            <th><strong>Superblock</strong></th>
-        </table>
+        <div id="superblockWrapper">
+            <table id="superblock">
+                <th><strong>Superblock</strong></th>
+            </table>
+        </div>
 
         <div id="fatDivWrapper">
             <div id="fatTableHeader"><strong>Fat Table</strong></div>
@@ -36,10 +40,13 @@
             <div id="dataDiv">
                 <table id="dataTable"></table>
             </div>
+            <br />
+            <form style="display:inline-block;float:right;margin-top:3px;margin-bottom:3px;">
+                <input onclick="reload()" value="Reload" type="button">
+            </form>
         </div>
         <script>displayXMLFields();</script>
     </div>
-
     <center>
         <div id="footer">
             <span>Copyright &copy; 2015, Filipe Esteves</span>

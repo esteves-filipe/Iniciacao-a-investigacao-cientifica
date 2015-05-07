@@ -1,3 +1,7 @@
+html {
+    overflow: hidden;
+}
+
 body {
     background-color: #2C3539;
     margin: 0px;
@@ -5,6 +9,7 @@ body {
     font-family: 'Trebuchet MS';
     font-size: 14px;
     height: auto;
+    overflow: hidden;
 }
 
 .titulo {
@@ -13,6 +18,7 @@ body {
     font-weight: bold;
     width: 100%;
     text-align: center;
+    vertical-align: middle;
 }
 
 #header {
@@ -23,21 +29,35 @@ body {
     font-weight: bold;
     font-family: Candara;
     padding-top: 7px;
+    margin-bottom: 5px;
+}
+
+#tree {
+    background-color: rgb(80,80,80);
+    display: inline-block;
+    min-width: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    vertical-align: top;
+    overflow: scroll;
+}
+
+#treeWrapper {
+    background-color: white;
+    display: inline-block;
+    max-width: 12%;
+    max-height: 100%;
+    vertical-align: top;
+    padding: 7px;
 }
 
 #content {
     background: #FFFFFF;
-    padding: 14px 12px;
-    width: 1252px;
-    min-height: 100px;
-    overflow: hidden;
-    margin: 2px auto;
-    border-radius: 4px;
+    padding: 7px;
+    overflow-y: scroll;
     position: relative;
     font-size: 14px;
-    overflow: hidden;
-    overflow: hidden;
-    height: auto;
+    display: inline-block;
 }
 
 #myfilesystem {
@@ -52,6 +72,7 @@ body {
     border-spacing: 0;
     border-color: #bbb;
     display: inline-block;
+    max-width: 10%;
 }
 
     #superblock td {
@@ -63,8 +84,8 @@ body {
         overflow: hidden;
         word-break: normal;
         border-color: #bbb;
-        color: #594F4F;
-        background-color: #E0FFEB;
+        color: black;
+        background-color: #C2FFD6;
     }
 
     #superblock th {
@@ -77,8 +98,8 @@ body {
         overflow: hidden;
         word-break: normal;
         border-color: #bbb;
-        color: #493F3F;
-        background-color: #9DE0AD;
+        color: white;
+        background-color: #15cb00;
     }
 
     #superblock .light {
@@ -86,9 +107,14 @@ body {
     }
 
     #superblock .dark {
-        background-color: #C2FFD6;
+        background-color: #E0FFEB;
         text-align: center;
     }
+
+#superblockWrapper {
+    display: inline-block;
+    vertical-align: top;
+}
 
 #fatDivWrapper {
     display: inline-block;
@@ -113,10 +139,11 @@ body {
 }
 
 #fatDiv {
-    overflow-y: scroll;
-    max-height: 500px;
+    overflow: scroll;
     display: inline-block;
     vertical-align: top;
+    max-width: 100%;
+    max-height: 500px;
 }
 
 #fatTable {
@@ -139,6 +166,7 @@ body {
         border-color: #999;
         color: #444;
         background-color: #F7FDFA;
+        width: auto;
     }
 
     #fatTable .light {
@@ -175,9 +203,10 @@ body {
 #dataDiv {
     overflow: scroll;
     max-height: 500px;
-    max-width: 842px;
+    min-height: 500px;
     display: inline-block;
     vertical-align: top;
+    max-width: 100%;
 }
 
 #dataTable {
@@ -186,6 +215,8 @@ body {
     border-color: #aabcfe;
     display: inline-block;
 }
+
+
 
 .blockCell {
     min-width: 100px;
@@ -198,7 +229,7 @@ body {
 .dataBlockCell {
     min-width: 100px;
     vertical-align: top;
-    background-color: #D6ACFF;
+    background-color: lightslategray;
     border-style: solid;
     border-width: 2px;
 }
@@ -216,6 +247,13 @@ body {
     display: block;
     vertical-align: top;
 }
+
+.freeEntryDiv {
+    width: 100%;
+    display: block;
+    vertical-align: top;
+}
+
 
 .fileDirEntryTable {
     width: 100%;
@@ -237,12 +275,12 @@ body {
         border-color: #aaa;
         color: #333;
         color: #333;
-        background-color: orange;
+        background-color: #FCFBE3;
         text-align: center;
     }
 
     .fileDirEntryTable .dark {
-        background-color: #FCFBE3;
+        background-color: orange;
     }
 
 .folderDirEntryTable {
@@ -269,6 +307,11 @@ body {
         text-align: center;
     }
 
+    .folderDirEntryTable .freeEntry {
+        background-color: lightseagreen;
+        color: white;
+    }
+
     .folderDirEntryTable .dark {
         background-color: #adff2f;
     }
@@ -276,7 +319,7 @@ body {
 #footer {
     background: #E5E4E2;
     padding: 4px 12px;
-    width: 1242px;
+    width: 100%;
     margin: 2px auto 0px auto;
     font-size: 12px;
     border-radius: 4px;
@@ -291,10 +334,6 @@ td {
     width: 100%;
 }
 
-input {
-    float: left;
-    clear: left;
-}
 
 span {
     color: black;
@@ -302,4 +341,8 @@ span {
 
 form {
     text-align: left;
+}
+
+body {
+    overflow: hidden;
 }

@@ -49,6 +49,12 @@
     </attribute>
   </superblock>
 
+  <fat_entry>
+    <type>int</type>
+    <size>4</size>
+    <description> size of a fat entrie </description>
+  </fat_entry>
+
   <dir_entry>
     <attribute>
       <name>type</name>
@@ -58,7 +64,7 @@
         kind of entry (TYPE_DIR or TYPE_FILE)
       </description>
     </attribute>
-        <attribute>
+    <attribute>
       <name>name</name>
       <type>char[]</type>
       <array_size>20</array_size>
@@ -92,30 +98,6 @@
       <description>
         Year that the entry was created (1 and 255 - (0
         represents the year of 1900))
-      </description>
-    </attribute>
-    <attribute>
-      <name>hour</name>
-      <type>unsigned char</type>
-      <disk_size_bytes>1</disk_size_bytes>
-      <description>
-        Hour of the day that the entry was created
-      </description>
-    </attribute>
-    <attribute>
-      <name>min</name>
-      <type>unsigned char</type>
-      <disk_size_bytes>1</disk_size_bytes>
-      <description>
-        Minute of the hour that the entry was created
-      </description>
-    </attribute>
-    <attribute>
-      <name>sec</name>
-      <type>unsigned char</type>
-      <disk_size_bytes>1</disk_size_bytes>
-      <description>
-        Second of the minute that the entry was created
       </description>
     </attribute>
     <attribute>
